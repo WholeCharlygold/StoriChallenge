@@ -42,12 +42,31 @@ class Skyline {
      */
     public Building InsideSkyline(Building x_edificio, int y, PriorityQueue<Building> edificios) {
         PriorityQueue<Building> aux = new PriorityQueue<>(edificios);
+        ArrayList<Building> aux_2 = new ArrayList<Building>();
         while (!aux.isEmpty()) {
             Building edificio = aux.remove();
-            if (edificio.xInside(x_edificio.getRi()) && edificio.yInside(y) && edificio != x_edificio)
-                return edificio;
+            if (edificio.xInside(x_edificio.getRi()) && edificio != x_edificio){
+                aux_2.add(edificio);
+                
+            }
+                
         }
-        return null;
+        if(aux_2.isEmpty()){
+            return null;
+        }else{
+            System.out.println("El edificio para la coordenada ["+x_edificio.getRi()+','+y+"] es:");
+            Building res = aux_2.get(0);
+            for(Building o: aux_2){
+                if(res.getHi()<o.getHi()){
+                    o.display();
+                    res = o;
+                }
+            }
+            System.out.println("Elegido:");
+            res.display();
+            return res;
+        }
+        
     }
 
     /**
@@ -79,7 +98,7 @@ class Skyline {
         System.out.println("Type how many buildings are with number. Example: 6");
         number_of_buildings = Integer.parseInt(lapiz.nextLine());
         }catch(Exception e){
-            System.out.println("Type like the example shown!");
+            System.out.println("Type the input like the example pls!");
             System.exit(0);
         }
         
@@ -92,7 +111,7 @@ class Skyline {
             aux = str.split(",");
             buildings.add(new Building(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2])));
             }catch(Exception e){
-                System.out.println("Type like the example shown!");
+                System.out.println("Type the input like the example pls!");
                 System.exit(0);
             }
             
@@ -127,16 +146,16 @@ class Skyline {
             } else { // Case 2: There is even one keypoint in the list of skyline
                 KeyPoint last_KeyPoint = metro.pointList.get(metro.pointList.size() - 1);
                 Building aux_Building = metro.InsideSkyline(last_edificio, y, aux_edificios);
-                if (y > last_KeyPoint.y) { // Case 2.1: The next building is taller than the last one
+                if (y > last_KeyPoint.y && x> last_KeyPoint.x) { // Case 2.1: The next building is taller than the last one
                     metro.pointList.add(new KeyPoint(x, y));
                     last_edificio = edificio;
                     pBuildings.remove();
-                }  else if (y == last_KeyPoint.y) { // Case 2.2: The next building is taller as the last one
+                }  else if (y == last_KeyPoint.y || x<last_KeyPoint.x) { // Case 2.2: The next building is taller as the last one
                     last_edificio = edificio;
                    pBuildings.remove();
                 }else if (aux_Building != null ) { // Case 2.3: The next building isnt taller
                                                                            // than the last one
-                    metro.pointList.add(new KeyPoint(last_edificio.getRi(), y));
+                    metro.pointList.add(new KeyPoint(last_edificio.getRi(), aux_Building.getHi()));
                     last_edificio = aux_Building;
                 } else { //Case 2.4: Theres no adyacent building so theres floor
                     metro.pointList.add(new KeyPoint(last_edificio.getRi(), 0));
@@ -147,7 +166,7 @@ class Skyline {
         metro.pointList.add(new KeyPoint(last_edificio.getRi(), 0));
 
         // Output and clean result
-        metro.cleanKeyPoints();
+       // metro.cleanKeyPoints();
         System.out.println("--------------LIST OF KEYPOINTS OF THE SKYLINE----------- ");
         metro.displayKeyPoints();
     }
