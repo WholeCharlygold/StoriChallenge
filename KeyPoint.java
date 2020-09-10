@@ -17,7 +17,7 @@ public class KeyPoint {
         System.out.println("[" + this.x + ',' + this.y + ']');
     }
 
-
+    
     @Override
     public boolean equals(Object o){
         if(((KeyPoint)o).x == this.x && ((KeyPoint)o).y == this.y) return true;

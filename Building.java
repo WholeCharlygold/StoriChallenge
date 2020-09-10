@@ -57,6 +57,11 @@ public class Building implements Comparable<Building> {
 
     }
 
+    /**
+     * See if a point in y lays in the roof or a building
+     * @param y  point to be analyze
+     * @return false if xy is not inside the y-axis of the bulding
+     */
     public boolean yInside(int y){
         if (this.hi>=y) return true;
         else return false;

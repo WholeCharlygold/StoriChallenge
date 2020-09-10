@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-import java.util.Stack;
+
 
 //Main Class
 class Skyline {
@@ -51,6 +50,9 @@ class Skyline {
         return null;
     }
 
+    /**
+     * This function cleans the keypoints that are not valid in the array 
+     */
     public void cleanKeyPoints(){
         ArrayList<KeyPoint> result = new ArrayList<KeyPoint>();
         //result.add(this.pointList.get(this.pointList.size()-1));
@@ -95,7 +97,7 @@ class Skyline {
         // Organize by x coordinate buildings with a priority queue
         PriorityQueue<Building> pBuildings = new PriorityQueue<Building>();
         pBuildings.addAll(metro.bList);
-        // while(!pBuildings.isEmpty()) System.out.println(pBuildings.remove());
+        
 
         // Analysis
         Building last_edificio = new Building(0, 0, 0);
@@ -108,21 +110,21 @@ class Skyline {
                 metro.pointList.add(new KeyPoint(x, y));
                 last_edificio = edificio;
                 pBuildings.remove();
-            } else { // Case 2: There is even one keypoint in the list
+            } else { // Case 2: There is even one keypoint in the list of skyline
                 KeyPoint last_KeyPoint = metro.pointList.get(metro.pointList.size() - 1);
                 Building aux_Building = metro.InsideSkyline(last_edificio, y, aux_edificios);
                 if (y > last_KeyPoint.y) { // Case 2.1: The next building is taller than the last one
                     metro.pointList.add(new KeyPoint(x, y));
                     last_edificio = edificio;
                     pBuildings.remove();
-                }  else if (y == last_KeyPoint.y) {
+                }  else if (y == last_KeyPoint.y) { // Case 2.2: The next building is taller as the last one
                     last_edificio = edificio;
                    pBuildings.remove();
-                }else if (aux_Building != null ) { // Case 2.2: The next building isnt taller
+                }else if (aux_Building != null ) { // Case 2.3: The next building isnt taller
                                                                            // than the last one
                     metro.pointList.add(new KeyPoint(last_edificio.getRi(), y));
                     last_edificio = aux_Building;
-                } else {
+                } else { //Case 2.4: Theres no adyacent building so theres floor
                     metro.pointList.add(new KeyPoint(last_edificio.getRi(), 0));
                     //pBuildings.remove();
                 }
