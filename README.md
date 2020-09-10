@@ -2,7 +2,7 @@
 
 The skyline Problem - Challenge
 
-Programa resuelto con Java en la versión 14.0.1.
+Programa resuelto con Java SE en la versión 14.0.1.
 
 Para poder correr el programa se necesita Java Instalado con la configuración en PATH.
 
