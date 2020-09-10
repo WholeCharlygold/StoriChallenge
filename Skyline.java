@@ -73,15 +73,29 @@ class Skyline {
      * @return Skyline Object
      */
     public static Skyline input() {
+        int number_of_buildings = 0;
         Scanner lapiz = new Scanner(System.in);
+        try{
         System.out.println("Type how many buildings are with number. Example: 6");
-        int number_of_buildings = Integer.parseInt(lapiz.nextLine());
+        number_of_buildings = Integer.parseInt(lapiz.nextLine());
+        }catch(Exception e){
+            System.out.println("Type like the example shown!");
+            System.exit(0);
+        }
+        
         ArrayList<Building> buildings = new ArrayList<Building>();
         for (int i = 0; i < number_of_buildings; i++) {
-            System.out.println("Type the coordinates of the " + (i + 1) + " building as li,ri,hi. Example: 1,4,7");
+            String[] aux=null;
+            try{
+                System.out.println("Type the coordinates of the " + (i + 1) + " building as li,ri,hi. Example: 1,4,7");
             String str = lapiz.nextLine();
-            String[] aux = str.split(",");
+            aux = str.split(",");
             buildings.add(new Building(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2])));
+            }catch(Exception e){
+                System.out.println("Type like the example shown!");
+                System.exit(0);
+            }
+            
         }
         lapiz.close();
         Skyline metro = new Skyline(buildings);
