@@ -148,6 +148,7 @@ class Skyline {
 
         // Output and clean result
         metro.cleanKeyPoints();
+        System.out.println("--------------LIST OF KEYPOINTS OF THE SKYLINE----------- ");
         metro.displayKeyPoints();
     }
 }
