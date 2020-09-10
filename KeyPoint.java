@@ -18,8 +18,11 @@ public class KeyPoint {
     }
 
 
-    public static void main(String...args){
-        KeyPoint point = new KeyPoint(2, 3);
-        point.display();
+    @Override
+    public boolean equals(Object o){
+        if(((KeyPoint)o).x == this.x && ((KeyPoint)o).y == this.y) return true;
+        return false;
+
     }
+
 }
