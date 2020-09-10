@@ -54,36 +54,21 @@ class Skyline {
         if(aux_2.isEmpty()){
             return null;
         }else{
-            System.out.println("El edificio para la coordenada ["+x_edificio.getRi()+','+y+"] es:");
+            //System.out.println("El edificio para la coordenada ["+x_edificio.getRi()+','+y+"] es:");
             Building res = aux_2.get(0);
             for(Building o: aux_2){
                 if(res.getHi()<o.getHi()){
-                    o.display();
+                  //  o.display();
                     res = o;
                 }
             }
-            System.out.println("Elegido:");
-            res.display();
+            //System.out.println("Elegido:");
+           // res.display();
             return res;
         }
         
     }
 
-    /**
-     * This function cleans the keypoints that are not valid in the array 
-     */
-    public void cleanKeyPoints(){
-        ArrayList<KeyPoint> result = new ArrayList<KeyPoint>();
-        //result.add(this.pointList.get(this.pointList.size()-1));
-        for(int i = this.pointList.size()-1;i>0;i--){
-            if(this.pointList.get(i).x == this.pointList.get(i-1).x){
-                result.add(this.pointList.get(i-1));
-            }
-        }
-        
-        this.pointList.removeAll(result);
-        
-    }
 
     // Static Methods
     /**
@@ -150,7 +135,7 @@ class Skyline {
                     metro.pointList.add(new KeyPoint(x, y));
                     last_edificio = edificio;
                     pBuildings.remove();
-                }  else if (y == last_KeyPoint.y || x<last_KeyPoint.x) { // Case 2.2: The next building is taller as the last one
+                }  else if (y == last_KeyPoint.y || x<last_KeyPoint.x) { // Case 2.2: The next building is as taller as the last one OR the next building behind the last one
                     last_edificio = edificio;
                    pBuildings.remove();
                 }else if (aux_Building != null ) { // Case 2.3: The next building isnt taller
@@ -166,7 +151,7 @@ class Skyline {
         metro.pointList.add(new KeyPoint(last_edificio.getRi(), 0));
 
         // Output and clean result
-       // metro.cleanKeyPoints();
+       
         System.out.println("--------------LIST OF KEYPOINTS OF THE SKYLINE----------- ");
         metro.displayKeyPoints();
     }
