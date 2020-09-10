@@ -135,7 +135,7 @@ class Skyline {
                     metro.pointList.add(new KeyPoint(x, y));
                     last_edificio = edificio;
                     pBuildings.remove();
-                }  else if (y == last_KeyPoint.y || x<last_KeyPoint.x) { // Case 2.2: The next building is as taller as the last one OR the next building behind the last one
+                }  else if (y == last_KeyPoint.y || x<last_KeyPoint.x || y<pBuildings.peek().getHi()) { // Case 2.2: The next building is as taller as the last one OR the next building behind the last one
                     last_edificio = edificio;
                    pBuildings.remove();
                 }else if (aux_Building != null ) { // Case 2.3: The next building isnt taller
@@ -148,6 +148,7 @@ class Skyline {
                 }
             }
         }
+        if(last_edificio.getRi()>metro.pointList.get(metro.pointList.size()-1).x)
         metro.pointList.add(new KeyPoint(last_edificio.getRi(), 0));
 
         // Output and clean result
